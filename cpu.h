@@ -20,12 +20,24 @@
  * 
  */
 
+
+/**
+ * @brief the stack of cpu
+ */
+
+typedef struct processor {
+    stack* stack;
+    int ax, bx, cx, dx;
+} processor;
+
 int main(const int argc, const char* argv[]);
-ERRORS mov_reg(int a, int b);
-ERRORS mov_val(int a, int b);
+processor* allocator();
+void print_status(processor* cpu);
+void diallocator(processor* cpu);
+ERRORS mov_reg(processor * cpu, int a, int b);
+ERRORS mov_val(processor * cpu, int a, int b);
 ERRORS mov_opData();
-ERRORS _push(stack* stack, int info);
-double _pop(stack* stack);
-ERRORS push_reg(stack* stack, int reg_name);
+ERRORS push_reg(processor* CPU, stack* stack, int reg_name);
+ERRORS pop_reg(processor* cpu, int reg_name, int data);
 
 #endif

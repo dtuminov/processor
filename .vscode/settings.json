@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stack.h": "c",
+        "process.h": "c",
+        "assembler.h": "c",
+        "assert.h": "c"
+    }
+}

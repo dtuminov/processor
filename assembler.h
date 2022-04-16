@@ -25,14 +25,7 @@ typedef enum ERRORS{
     empty_stack
 } ERRORS;
 
-/**
- * @brief the stack of cpu
- */
 
-typedef struct processor {
-    stack * stack;
-    double ax, bx, cx, dx;
-} processor;
 
 
 /**
@@ -43,7 +36,7 @@ typedef enum CPU_functions {
     Push = 1, Push_reg,
     Pop, Pop_reg,
     Stack_destroy, Stack_init,
-    Mov, Top,
+    Mov_val, Mov_reg, Top,
     Add, Sub,
     Mult, Div,
     ax, bx, cx, dx,

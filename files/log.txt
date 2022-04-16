@@ -1,0 +1,540 @@
+................................
+Information about stack 03/01/22 14:20:21
+length = 10
+the current iterator = 1
+The memory of array = 00DD24C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1984198718
+current stack hash value = 390592262
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:20:21
+length = 10
+the current iterator = 2
+The memory of array = 00DD24C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:20:21
+length = 10
+the current iterator = 2
+The memory of array = 00DD24C0
+Elements of array:
+arr[0] = 6.079102
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = 347443583
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:20:21
+length = 5
+the current iterator = 1
+The memory of array = 00DD24C0
+Elements of array:
+arr[0] = 6.079102
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1533982806
+current stack hash value = -1533982806
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:17
+length = 10
+the current iterator = 1
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1984198718
+current stack hash value = 390592262
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:17
+length = 10
+the current iterator = 2
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:17
+length = 10
+the current iterator = 2
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079102
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = 347443583
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:17
+length = 5
+the current iterator = 1
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079102
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1533982806
+current stack hash value = -1533982806
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:48
+length = 10
+the current iterator = 1
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1984198718
+current stack hash value = 390592262
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:48
+length = 10
+the current iterator = 2
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:48
+length = 10
+the current iterator = 2
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:24:48
+length = 10
+the current iterator = 3
+The memory of array = 00D224C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 6.080000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:26:06
+length = 10
+the current iterator = 1
+The memory of array = 00D324C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1984198718
+current stack hash value = 390592262
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:26:06
+length = 10
+the current iterator = 2
+The memory of array = 00D324C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:26:06
+length = 10
+the current iterator = 2
+The memory of array = 00D324C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:26:06
+length = 10
+the current iterator = 3
+The memory of array = 00D324C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 6.080000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:27:26
+length = 10
+the current iterator = 1
+The memory of array = 009724C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1984198718
+current stack hash value = 390592262
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:27:26
+length = 10
+the current iterator = 2
+The memory of array = 009724C0
+Elements of array:
+arr[0] = 6.079103
+arr[1] = 6.080000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1362860329
+current stack hash value = -1362860329
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:38:45
+length = 10
+the current iterator = 1
+The memory of array = 001F24C0
+Elements of array:
+arr[0] = 6.000002
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -597573476
+current stack hash value = -1007137414
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:38:45
+length = 10
+the current iterator = 2
+The memory of array = 001F24C0
+Elements of array:
+arr[0] = 6.000002
+arr[1] = 6.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1007137414
+current stack hash value = -1007137414
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:39:17
+length = 10
+the current iterator = 1
+The memory of array = 006824C0
+Elements of array:
+arr[0] = 6.000002
+arr[1] = 0.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -597573476
+current stack hash value = -1007137414
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+
+................................
+Information about stack 03/01/22 14:39:17
+length = 10
+the current iterator = 2
+The memory of array = 006824C0
+Elements of array:
+arr[0] = 6.000002
+arr[1] = 6.000000
+arr[2] = 0.000000
+arr[3] = 0.000000
+arr[4] = 0.000000
+arr[5] = 0.000000
+arr[6] = 0.000000
+arr[7] = 0.000000
+arr[8] = 0.000000
+arr[9] = 79564576.000000
+kanareika value = 79564576
+original stack hash value = -1007137414
+current stack hash value = -1007137414
+stack status = DIFFERENT_HASH
+procces ended
+................................
+
+
+

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <stdlib.h>
 /**
  * @brief the array of cpu and stack functions names
  * 
@@ -33,7 +33,7 @@ ERRORS create_binar(FILE* file){
     FILE *cpu_keys = fopen("files/binar.myexe", "w");
     if (cpu_keys == NULL || file == NULL){
         perror("ERROR");
-		return EXIT_FAILURE;
+		return not_valid_function;
     }
 
 	char *lineBuf = NULL;
@@ -52,7 +52,7 @@ ERRORS create_binar(FILE* file){
 			char **tmp = realloc(lines, sizeIncrement * sizeof(char**));
 			if (!tmp) {
 				perror("realloc");
-				return EXIT_FAILURE;
+				return not_valid_function;
 			}
 			lines = tmp;
 		}
@@ -78,8 +78,10 @@ ERRORS create_binar(FILE* file){
         //pop
         if(strcmp(str, cpu_functions[1]) == 0){
             printf("function pop writed \n"); 
-            int name = Pop;
+            int name = Pop, reg_name;
+            reg_name = Get_reg_name(val);
             fwrite(&name, sizeof(name), 1, cpu_keys);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
         }
         //stack_init
         else if (strcmp(cpu_functions[0], str) == 0){ 
@@ -107,9 +109,21 @@ ERRORS create_binar(FILE* file){
             return ok;
         }  
         //mov
-        else if(strcmp(lines[i], cpu_functions[5]) == 0){
-            fprintf(cpu_keys, "%d", Mov);
-            return ok;
+        else if(strcmp(str, cpu_functions[5]) == 0){
+            printf("mov writed\n");
+            int reg_name = 0;
+            lines[i] += 1;
+            sscanf(lines[i], "%s", val); //
+            val[strlen(val)-1] = '\0';
+            reg_name = Get_reg_name(val);
+            lines[i] += 3;
+            sscanf(lines[i], "%s", val);
+            int name, param;
+            if(isdigit(val[0])){ name = Mov_val; param = atoi(val); }
+            else { name = Mov_reg; param = Get_reg_name(val); }
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
+            fwrite(&param, sizeof(param), 1, cpu_keys);
         }
         //add
         else if(strcmp(lines[i], cpu_functions[6]) == 0){
@@ -194,3 +208,6 @@ void devide_lines(char** lines, size_t length){
 
 //check error with the end of file
 //material heme darker high contrast 
+// sunglasses ( which object that u wearing when it is sunny outside)
+// credit card (which object that u always forget on your tabble )
+// hair dryer 
