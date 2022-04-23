@@ -1,6 +1,9 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
+#define printf_warning printf("Warning in function %s:%d\n", __FUNCTION__ ,__LINE__);
+#define SWRITE printf("-[function %s writed] \n", str); 
+
 /**
  * @file process.h
  * @author your name (you@domain.com)
@@ -13,20 +16,16 @@
  */
  
 #include "stack/stack.h"
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <conio.h>
 
-/**
- * @brief error codes returned by functions
- */
-
-typedef enum ERRORS{
-    ok,
-    openning_file_error,    
-    not_valid_function,
-    empty_stack
-} ERRORS;
-
-
-
+typedef struct pair {
+    char* str;
+    int iter;
+} pair;
 
 /**
  * @brief instructions that the processor executes
@@ -44,8 +43,11 @@ typedef enum CPU_functions {
 } CPU_functions;
 
 extern const char* cpu_functions[];
+extern struct pair* marks;
 
-ERRORS create_binar(FILE* file);
+struct pair* make_pair();
+void delete_pair(struct pair* pair);
+void create_binar(FILE* file);
 void devide_lines(char** array, size_t length);
 size_t Get_reg_name(char * val);
 
