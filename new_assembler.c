@@ -2,7 +2,7 @@
  * @file assembler.c
  * @author tuminov dmitriy (you@domain.com)
  * @brief create binar file with code of functions
- * @version 2.14
+ * @version 3.7
  * @date 2022-03-18
  * 
  * @copyright Copyright (c) 2021
@@ -13,11 +13,16 @@
 
 /**
  * @brief the array of cpu and stack functions names
- * 
  */
-
 const char* cpu_functions[] = {"stack_init", "pop", "push", "stack_destroy", "top"
-, "mov", "add", "sub", "mult", "div", "exit"};
+, "mov", "add", "sub", "mult", "div", "ja", "jmp", "cmp", "exit"};
+
+//количество меток в файле
+int labels_size = 0;
+
+//лимит на количество меток
+//количство меток в файле хранится в labels_size
+pair labels[200];
 
 /**
  * @brief Create a binar object
@@ -29,7 +34,8 @@ const char* cpu_functions[] = {"stack_init", "pop", "push", "stack_destroy", "to
 void create_binar(FILE* file){
     FILE *cpu_keys = fopen("files/binar.myexe", "w");
     //обработка открытия файла
-    if (cpu_keys == NULL) { printf_warning; exit(errno); }
+    if (cpu_keys == NULL)  
+        printf_warning;
 	char *lineBuf = NULL;
 	size_t n = 0, nLines = 0, lineLength = 0, sizeIncrement = 10, i = 0;
 	char **lines = calloc(sizeIncrement , sizeof(char**));
@@ -41,7 +47,6 @@ void create_binar(FILE* file){
 			char **tmp = realloc(lines, sizeIncrement * sizeof(char**));
 			if (!tmp) {
 				printf_warning;
-				exit(errno);
 			}
 			lines = tmp;
 		}
@@ -55,7 +60,9 @@ void create_binar(FILE* file){
 		// Keep track of the number of lines read for later use.
 		nLines = i;
 	}
-    // main cycle
+    //ищем количество меток в файле
+    find_labels(lines, nLines);
+    // цикл заполения бинарника
     for (size_t i = 0; i < nLines; i++) {
         char val[50], str[50];
         sscanf(lines[i], "%s", str);
@@ -68,12 +75,6 @@ void create_binar(FILE* file){
             fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
             SWRITE;
         }
-        //stack_init
-        else if (strcmp(cpu_functions[0], str) == 0){ 
-            printf("initialization of stack writed \n"); 
-            int name = Stack_init;
-            fwrite(&name, sizeof(name), 1, cpu_keys);
-        }
         //push
         else if(strcmp(cpu_functions[2], str) == 0){
             int name, param;
@@ -83,11 +84,7 @@ void create_binar(FILE* file){
             fwrite(&param, sizeof(param), 1, cpu_keys);
             SWRITE;
         }
-        //top
-        else if(strcmp(lines[i], cpu_functions[4]) == 0){
-            fprintf(cpu_keys, "%d", Top);
-        }  
-        //mov
+        //mov переделать
         else if(strcmp(str, cpu_functions[5]) == 0){
             int reg_name = 0;
             lines[i] += 1;
@@ -105,8 +102,20 @@ void create_binar(FILE* file){
             SWRITE;
         }
         //add
-        else if(strcmp(lines[i], cpu_functions[6]) == 0){
-            fprintf(cpu_keys, "%d", Add);
+        else if(strcmp(str, cpu_functions[6]) == 0){
+            int name = Cmp, reg_name = 0;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            lines[i] += 1;
+            sscanf(lines[i], "%s", val);
+            val[strlen(val)-1] = '\0';
+            reg_name =  Get_reg_name(val);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
+            reg_name = Get_reg_name(val);
+            lines[i] += 3;
+            sscanf(lines[i], "%s", val);
+            reg_name =  Get_reg_name(val);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
+            SWRITE;
         }
         //sub
         else if(strcmp(lines[i], cpu_functions[7]) == 0){
@@ -118,21 +127,49 @@ void create_binar(FILE* file){
         }
         else if(strcmp(lines[i], cpu_functions[9]) == 0){
             fprintf(cpu_keys, "%d", Div);
-            
         }
-        else if(strcmp(lines[i], cpu_functions[10]) == 0){
-            fprintf(cpu_keys, "%d", Exit);
+        //ja
+        else if(strcmp(str, cpu_functions[10]) == 0){
+            int name = J_a;
+            int lab = Get_label_name(labels, val) ;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            fwrite(&lab, sizeof(lab), 1, cpu_keys);
+            SWRITE;
+        }
+        //jmp
+        else if(strcmp(str, cpu_functions[11]) == 0){
+            int name = Jmp;
+            int lab = Get_label_name(labels, val) ;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            fwrite(&lab, sizeof(lab), 1, cpu_keys);
+            SWRITE;
+        }
+        //cmp переделать
+        else if(strcmp(str, cpu_functions[12]) == 0){
+            int name = Cmp, reg_name = 0;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            lines[i] += 1;
+            sscanf(lines[i], "%s", val);
+            val[strlen(val)-1] = '\0';
+            reg_name =  Get_reg_name(val);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
+            reg_name = Get_reg_name(val);
+            lines[i] += 3;
+            sscanf(lines[i], "%s", val);
+            reg_name =  Get_reg_name(val);
+            fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
+            SWRITE;
         }
     }
-
+    printf("%d\n", nLines);
+    fclose(file);
     // Free the buffer utilised by `getline()`.
 	free(lineBuf);
 	// Free the lines of strings.
 	for (size_t i = 0; i < nLines; i++)
 		free(*(lines + i));
 	free(lines);
-    fclose(file);
-    exit(errno);
+   // delete_pair(pair);
 }
 
 /**
@@ -155,6 +192,42 @@ size_t Get_reg_name(char * val){
     return -1;
 }
 
+//ГОВНОКОД ФИКС
+//это вообще пиздец
+// я сам не ебу что она делает
+char* my_strcpy(char* str){
+    size_t length = strlen(str) + 2;
+    char  *new = (char*)calloc(sizeof(char), length);
+    strcpy(new, str);
+    new[length-2] = ':'; new[length-1] = '\0';
+    return new;
+}
+
+//ГОВНОКОД ПОФИКСТЬ
+char* my_strcmp(char* first){
+   for (size_t i = 0; i < strlen(first); i++)
+   {
+       if (first[i] == '\r')
+       {
+           first[i] = '\0';
+       }
+   }
+   return first;
+    
+}
+// 167 строка... ФИКС
+size_t Get_label_name(pair array[], char * label){
+    label = my_strcpy(label);
+    for (size_t i = 0; i < labels_size; i++)
+    {   
+        array[i].str = my_strcmp(array[i].str);
+        if (strcmp(array[i].str, label) == 0){
+            return array[i].iter;
+        }
+    }
+    return -1;
+}
+
 /**
  * @brief 
  * 
@@ -163,7 +236,7 @@ size_t Get_reg_name(char * val){
  */
 
 void devide_lines(char** lines, size_t length){
-    if(lines == NULL){ printf_warning; exit(errno); }
+    if(lines == NULL){ printf_warning; }
     //change '\n' to '\0' to iteration
     for (size_t i = 0; i < length; ++i) {
         char *ach;
@@ -172,8 +245,54 @@ void devide_lines(char** lines, size_t length){
     }
 }
 
-/*struct pair* make_pair(){
-    struct pair* pair = (struct pair*)calloc(sizeof(struct pair), 1);
-    pair->iter = 0;
+/**
+ * @brief 
+ * 
+ * @param code_of_position 
+ * @param name_of_label 
+ * @return struct pair 
+ */
+
+struct pair make_pair(int code_of_position, char* name_of_label){
+    if(name_of_label == NULL)
+        printf_warning;
+    pair pair;
+    pair.iter = code_of_position;
+    pair.str = name_of_label;
     return pair;
-}*/
+}
+
+void find_labels(char** bufer, int lenght){
+    if(NULL == bufer)
+        printf_warning; 
+    int iter = 0, val = 0; 
+    for (size_t i = 0; i < lenght; i++) {
+        val += get_count_of_spase(bufer[i]);
+        if (strchr(bufer[i], ':') != NULL) {
+            if (i > 0 ) {
+                val++;
+            }
+            labels[iter] = make_pair(val, bufer[i]);
+            iter++; labels_size++;
+        }
+    }
+}
+
+//эта штука блять считает количество пробелов в строке и из этого
+//возвращает сколько слов в строке
+int get_count_of_spase(char* str){
+    if (str == NULL){
+        printf_warning;
+    }
+    int val = 0;
+    for (size_t i = 0; i < strlen(str); i++)
+    {
+        if(strchr(str, ':') != 0){
+            return 0;
+        }
+        if (str[i] == ' ') {
+            val++;
+        } 
+    }
+    return ++val;
+}

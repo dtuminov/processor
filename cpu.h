@@ -1,6 +1,9 @@
 #ifndef CPU_H
 #define CPU_H
 
+#define JUMPED 1
+#define NJUMPED -1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -28,16 +31,20 @@
 typedef struct processor {
     stack* stack;
     int ax, bx, cx, dx;
+    int status;
 } processor;
 
 int main(const int argc, const char* argv[]);
 processor* allocator();
 void print_status(processor* cpu);
 void diallocator(processor* cpu);
-ERRORS mov_reg(processor * cpu, int a, int b);
-ERRORS mov_val(processor * cpu, int a, int b);
-ERRORS mov_opData();
-ERRORS push_reg(processor* CPU, stack* stack, int reg_name);
-ERRORS pop_reg(processor* cpu, int reg_name, int data);
-
+void cmp(processor* cpu, int firstReg,int secondReg);
+void mov_reg(processor * cpu, int a, int b);
+void mov_val(processor * cpu, int a, int b);
+void mov_opData();
+void push_reg(processor* CPU, stack* stack, int reg_name);
+void pop_reg(processor* cpu, int reg_name, int data);
+int ja(processor* cpu);
+int jmp(processor* cpu);
+void goto_label();
 #endif
