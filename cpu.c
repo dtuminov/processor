@@ -1,3 +1,9 @@
+#include "cpu.h"
+#include "assembler.h"
+#include <stdio.h>
+#include <string.h>
+#include "stack/stack.h"
+
 /**
  * @file cpu.c
  * @author your name (you@domain.com)
@@ -10,37 +16,33 @@
  */
 
 
-#include "cpu.h"
-#include "assembler.h"
-#include <stdio.h>
-#include <string.h>
-#include "stack/stack.h"
-
-
 int main(const int argc, const char* argv[]){
-    //initializations
     FILE *file = fopen("files/binar.myexe", "r");
-    processor *cpu = allocator(); int cur_val = 0;
+    CPU *cpu = allocator(); int cur_val = 0;
+    if (file == NULL) {
+        printf_warning;
+    }
+
     fseek(file, 0, SEEK_END);
     size_t file_bytes_size = ftell(file);
     fseek(file, 0, SEEK_SET);
+
+    if(file_bytes_size == 0){
+        printf_warning;
+    }
+
     int * bufer = (int*)calloc(sizeof(int), file_bytes_size);
     fread(bufer, sizeof(int),file_bytes_size, file);
-    
-    if(cpu->stack == NULL)
-       return -1;
-    if (file == NULL) 
-        printf_warning
 
-    for (size_t i = 0; i < file_bytes_size; i++) {
-        if (bufer[i] == Push) {
+    for (size_t i = 0; i < file_bytes_size; i++){
+        if (bufer[i] == Push){
             push(cpu->stack, bufer[++i]);
         } 
-        else if(bufer[i] == Push_reg) {
+        else if(bufer[i] == Push_reg){
             push_reg(cpu, cpu->stack, bufer[++i]);
         }
-        else if(bufer[i] == Pop) {
-            pop_reg(cpu, bufer[++i], bufer[++i]);
+        else if(bufer[i] == Pop){
+            pop_reg(cpu, bufer[++i]);
         }
         else if(bufer[i] == Mov_val){
             mov_val(cpu, bufer[++i], bufer[++i]);
@@ -49,12 +51,13 @@ int main(const int argc, const char* argv[]){
             mov_reg(cpu, bufer[++i], bufer[++i]);
         }
         else if(bufer[i] == Add){
-            /*code*/
+            add(cpu, bufer[++i], bufer[++i]);
         }
         else if(bufer[i] == Cmp){
             cmp(cpu, bufer[++i], bufer[++i]);
         }
         else if(bufer[i] == 18){
+            iterLabel = i;
             if (ja(cpu) == JUMPED){
                 i = bufer[++i] - 2; // почему блэт минус 2
             }
@@ -63,15 +66,16 @@ int main(const int argc, const char* argv[]){
             }
         }
         else if( bufer[i] == 19){
+            iterLabel = i;
             if (jmp(cpu) == JUMPED) {
-                i = bufer[++i] - 3;
+                i = bufer[++i] - 3; /// почему - 3
             }
             else{
                 ++i;
             }
         }
-        else if(bufer[i] == 0){
-            break;
+        else if(bufer[i] == Return){
+            i = iterLabel  + 1;
         }
     }
     //closing 
@@ -90,7 +94,7 @@ int main(const int argc, const char* argv[]){
  * @param b 
  */
 
-void mov_reg(processor * cpu, int a, int b){
+void mov_reg(CPU * cpu, int a, int b){
     if(cpu == NULL) { printf_warning; exit(errno); }
     if(a == ax){ 
         if(b == bx) cpu->ax = cpu->bx;
@@ -122,7 +126,7 @@ void mov_reg(processor * cpu, int a, int b){
  * @param b 
  */
 
-void mov_val(processor * cpu, int a, int b){
+void mov_val(CPU * cpu, int a, int b){
     printf("%d\n%d\n",a,b);
     if(cpu == NULL) { printf_warning; exit(errno); }
     if(b == ax){ 
@@ -141,7 +145,7 @@ void mov_val(processor * cpu, int a, int b){
  * @return ERRORS 
  */
 
-void push_reg(processor* CPU, stack* stack, int reg_name){
+void push_reg(CPU* CPU, stack* stack, int reg_name){
     if(stack == NULL || CPU == NULL) { printf_warning; exit(errno); }
     if(reg_name == ax){ push(stack, CPU->ax); }
     else if(reg_name == bx){ push(stack, CPU->bx); }
@@ -157,34 +161,44 @@ void push_reg(processor* CPU, stack* stack, int reg_name){
  * @param data 
  */
 
-void pop_reg(processor *cpu, int reg_name, int data){
-    if(cpu == NULL) { printf_warning; exit(errno); }
-    if(reg_name == ax){cpu->ax = data; }
-    else if(reg_name == bx){ cpu->bx = data; }
-    else if(reg_name == cx){ cpu->cx = data; }
-    else if(reg_name == dx){ cpu->dx = data; }
+void pop_reg(CPU *cpu, int reg_name){
+    if(cpu == NULL){ 
+        printf_warning; 
+    }
+    if(reg_name == ax){
+        cpu->ax = pop(cpu->stack);
+    }
+    else if(reg_name == bx){ 
+        cpu->bx = pop(cpu->stack); 
+    }
+    else if(reg_name == cx){ 
+        cpu->cx = pop(cpu->stack); 
+    }
+    else if(reg_name == dx){ 
+        cpu->dx = pop(cpu->stack); 
+    }
 }
 
 /**
  * @brief 
  * 
- * @return processor* 
+ * @return CPU* 
  */
 
-processor * allocator(){
-    processor *cpu = (processor*)calloc(1, sizeof(cpu));
+CPU * allocator(){
+    CPU *cpu = (CPU*)calloc(1, sizeof(cpu));
     cpu->stack = stack_init();
     cpu->ax=0, cpu->bx=0, cpu->cx =0, cpu->dx =0;
     return cpu;
 }
 
-void diallocator(processor* cpu){
+void diallocator(CPU* cpu){
     free(cpu->stack->arr);
     free(cpu->stack);
     free(cpu);
 }
 
-void print_status(processor* cpu){
+void print_status(CPU* cpu){
     printf("---cpu---\n");
     printf("ax = %d\nbx = %d\ncx = %d\ndx = %d\n\n",cpu->ax,cpu->bx,cpu->cx,cpu->dx);
     for (size_t i = 0; i < cpu->stack->iter; i++)
@@ -193,7 +207,7 @@ void print_status(processor* cpu){
     }
 }
 
-void cmp(processor* cpu, int secondReg,int firstReg){
+void cmp(CPU* cpu, int secondReg,int firstReg){
     if (cpu == NULL)
         printf_warning;
     if(firstReg == ax){
@@ -224,9 +238,37 @@ void cmp(processor* cpu, int secondReg,int firstReg){
             cpu->cx = cpu->bx - cpu->dx;
         }
     }
+    else if(firstReg == cx){
+        if (secondReg == ax)
+        {
+            cpu->cx = cpu->cx - cpu->ax;
+        }
+        else if (secondReg == bx)
+        {
+            cpu->cx = cpu->cx - cpu->bx;
+        }
+        else if (secondReg == dx)
+        {
+            cpu->cx = cpu->cx - cpu->dx;
+        }
+    }
+    else if(firstReg == dx){
+        if (secondReg == ax)
+        {
+            cpu->cx = cpu->dx - cpu->ax;
+        }
+        else if (secondReg == cx)
+        {
+            cpu->cx = cpu->dx - cpu->cx;
+        }
+        else if (secondReg == bx)
+        {
+            cpu->cx = cpu->dx - cpu->bx;
+        }
+    }
 }
 
-int ja(processor* cpu){
+int ja(CPU* cpu){
     if(cpu->cx>0){
         return JUMPED;
     }
@@ -234,11 +276,71 @@ int ja(processor* cpu){
         return NJUMPED;
     }
 }
-int jmp(processor* cpu){
+int jmp(CPU* cpu){
     if(cpu->cx<=0){
         return JUMPED;
     }
     else{
         return NJUMPED;
+    }
+}
+void add(CPU * cpu, int secondReg, int firstReg){
+    if (cpu == NULL)
+        printf_warning;
+    if(firstReg == ax){
+        if (secondReg == bx)
+        {
+            cpu->ax = cpu->ax + cpu->bx;
+        }
+        else if (secondReg == cx)
+        {
+            cpu->ax = cpu->ax + cpu->cx;
+        }
+        else if (secondReg == dx)
+        {
+            cpu->ax = cpu->ax + cpu->dx;
+        }
+    }
+    else if(firstReg == bx){
+        if (secondReg == ax)
+        {
+            cpu->bx = cpu->bx + cpu->ax;
+        }
+        else if (secondReg == cx)
+        {
+            cpu->bx = cpu->bx + cpu->cx;
+        }
+        else if (secondReg == dx)
+        {
+            cpu->bx = cpu->bx + cpu->dx;
+        }
+    }
+    else if(firstReg == cx){
+        if (secondReg == ax)
+        {
+            cpu->cx = cpu->cx + cpu->ax;
+        }
+        else if (secondReg == bx)
+        {
+            cpu->cx = cpu->cx + cpu->bx;
+        }
+        else if (secondReg == dx)
+        {
+            cpu->cx = cpu->cx + cpu->dx;
+        }
+    }
+    else if(firstReg == dx){
+        if (secondReg == ax)
+        {
+            cpu->dx = cpu->dx + cpu->ax;
+        }
+        else if (secondReg == cx)
+        {
+            cpu->dx = cpu->dx + cpu->cx;
+        }
+        else if (secondReg == bx)
+        {
+            cpu->dx = cpu->dx + cpu->bx;
+        }
     }
 }

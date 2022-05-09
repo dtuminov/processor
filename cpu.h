@@ -1,6 +1,5 @@
 #ifndef CPU_H
 #define CPU_H
-
 #define JUMPED 1
 #define NJUMPED -1
 
@@ -27,24 +26,24 @@
 /**
  * @brief the stack of cpu
  */
-
-typedef struct processor {
+typedef struct CPU {
     stack* stack;
     int ax, bx, cx, dx;
     int status;
-} processor;
-
+} CPU;
+int iterLabel = 0;
 int main(const int argc, const char* argv[]);
-processor* allocator();
-void print_status(processor* cpu);
-void diallocator(processor* cpu);
-void cmp(processor* cpu, int firstReg,int secondReg);
-void mov_reg(processor * cpu, int a, int b);
-void mov_val(processor * cpu, int a, int b);
+CPU* allocator();
+void print_status(CPU* cpu);
+void diallocator(CPU* cpu);
+void cmp(CPU* cpu, int firstReg,int secondReg);
+void mov_reg(CPU * cpu, int a, int b);
+void mov_val(CPU * cpu, int a, int b);
 void mov_opData();
-void push_reg(processor* CPU, stack* stack, int reg_name);
-void pop_reg(processor* cpu, int reg_name, int data);
-int ja(processor* cpu);
-int jmp(processor* cpu);
+void add(CPU * cpu, int firstReg, int secondReg);
+void push_reg(CPU* CPU, stack* stack, int reg_name);
+void pop_reg(CPU* cpu, int reg_name);
+int ja(CPU* cpu);
+int jmp(CPU* cpu);
 void goto_label();
 #endif

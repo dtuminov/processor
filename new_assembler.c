@@ -1,5 +1,7 @@
+#include "assembler.h"
+
 /**
- * @file assembler.c
+ * @file assemb ler.c
  * @author tuminov dmitriy (you@domain.com)
  * @brief create binar file with code of functions
  * @version 3.7
@@ -9,13 +11,12 @@
  * 
  */
 
-#include "assembler.h"
-
 /**
  * @brief the array of cpu and stack functions names
  */
+
 const char* cpu_functions[] = {"stack_init", "pop", "push", "stack_destroy", "top"
-, "mov", "add", "sub", "mult", "div", "ja", "jmp", "cmp", "exit"};
+, "mov", "add", "sub", "mult", "div", "ja", "jmp", "cmp", "return"};
 
 //количество меток в файле
 int labels_size = 0;
@@ -26,10 +27,10 @@ pair labels[200];
 
 /**
  * @brief Create a binar object
- * 
  * @param file given file 
  * @return ERRORS 
  */
+
 
 void create_binar(FILE* file){
     FILE *cpu_keys = fopen("files/binar.myexe", "w");
@@ -103,7 +104,7 @@ void create_binar(FILE* file){
         }
         //add
         else if(strcmp(str, cpu_functions[6]) == 0){
-            int name = Cmp, reg_name = 0;
+            int name = Add, reg_name = 0;
             fwrite(&name, sizeof(name), 1, cpu_keys);
             lines[i] += 1;
             sscanf(lines[i], "%s", val);
@@ -118,15 +119,12 @@ void create_binar(FILE* file){
             SWRITE;
         }
         //sub
-        else if(strcmp(lines[i], cpu_functions[7]) == 0){
-            fprintf(cpu_keys, "%d", Sub);
+        else if(strcmp(str, cpu_functions[7]) == 0){
         }
         //mult
-        else if(strcmp(lines[i], cpu_functions[8]) == 0){
-            fprintf(cpu_keys, "%d", Mult);
+        else if(strcmp(str, cpu_functions[8]) == 0){
         }
-        else if(strcmp(lines[i], cpu_functions[9]) == 0){
-            fprintf(cpu_keys, "%d", Div);
+        else if(strcmp(str, cpu_functions[9]) == 0){
         }
         //ja
         else if(strcmp(str, cpu_functions[10]) == 0){
@@ -160,8 +158,13 @@ void create_binar(FILE* file){
             fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
             SWRITE;
         }
+        //exit
+        else if(strcmp(str, cpu_functions[13]) == 0){
+            int name = Return;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            SWRITE;
+        }
     }
-    printf("%d\n", nLines);
     fclose(file);
     // Free the buffer utilised by `getline()`.
 	free(lineBuf);
