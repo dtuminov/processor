@@ -2,7 +2,7 @@
 #define CPU_H
 #define JUMPED 1
 #define NJUMPED -1
-
+#define BinarPath "files/binar.myexe"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -31,7 +31,6 @@ typedef struct CPU {
     int ax, bx, cx, dx;
     int status;
 } CPU;
-int iterLabel = 0;
 int main(const int argc, const char* argv[]);
 CPU* allocator();
 void print_status(CPU* cpu);
@@ -45,5 +44,6 @@ void push_reg(CPU* CPU, stack* stack, int reg_name);
 void pop_reg(CPU* cpu, int reg_name);
 int ja(CPU* cpu);
 int jmp(CPU* cpu);
+void call(CPU *cpu, int i);
 void goto_label();
 #endif

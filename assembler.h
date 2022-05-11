@@ -33,7 +33,7 @@ typedef enum CPU_functions {
     Push = 1, Push_reg, Pop, Pop_reg,
     Stack_destroy, Stack_init,
     Mov_val, Mov_reg, Top,
-    Add, Sub, Mult, Div,
+    Add, Sub, Mult, Div, Call,
     ax, bx, cx, dx, J_a, Jmp = 19, Cmp, Return, End
 } CPU_functions;
 

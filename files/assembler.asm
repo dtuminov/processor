@@ -1,11 +1,11 @@
-start:
+cmp_empl:
 mov ax, 5
 mov bx, 8
-add ax, bx
 cmp ax, bx
 ja true_mark
 jmp false_mark
+end
 true_mark:
-push 10
+push 30
 false_mark:
-push 1056
+push 40

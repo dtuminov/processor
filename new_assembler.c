@@ -16,7 +16,7 @@
  */
 
 const char* cpu_functions[] = {"stack_init", "pop", "push", "stack_destroy", "top"
-, "mov", "add", "sub", "mult", "div", "ja", "jmp", "cmp", "return"};
+, "mov", "add", "sub", "mult", "div", "ja", "jmp", "cmp", "return", "call", "end"};
 
 //количество меток в файле
 int labels_size = 0;
@@ -158,9 +158,21 @@ void create_binar(FILE* file){
             fwrite(&reg_name, sizeof(reg_name), 1, cpu_keys);
             SWRITE;
         }
-        //exit
+        //return
         else if(strcmp(str, cpu_functions[13]) == 0){
             int name = Return;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            SWRITE;
+        }
+        //Call
+        else if(strcmp(str, cpu_functions[14]) == 0){
+            int name = Call, lab = Get_label_name(labels, val) ;
+            fwrite(&name, sizeof(name), 1, cpu_keys);
+            fwrite(&lab, sizeof(lab), 1, cpu_keys);
+            SWRITE;
+        }
+        else if(strcmp(str, cpu_functions[15]) == 0){
+            int name = End;
             fwrite(&name, sizeof(name), 1, cpu_keys);
             SWRITE;
         }

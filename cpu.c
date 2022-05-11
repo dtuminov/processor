@@ -17,7 +17,7 @@
 
 
 int main(const int argc, const char* argv[]){
-    FILE *file = fopen("files/binar.myexe", "r");
+    FILE *file = fopen(BinarPath, "r");
     CPU *cpu = allocator(); int cur_val = 0;
     if (file == NULL) {
         printf_warning;
@@ -56,32 +56,21 @@ int main(const int argc, const char* argv[]){
         else if(bufer[i] == Cmp){
             cmp(cpu, bufer[++i], bufer[++i]);
         }
-        else if(bufer[i] == 18){
-            iterLabel = i;
-            if (ja(cpu) == JUMPED){
-                i = bufer[++i] - 2; // почему блэт минус 2
-            }
-            else{
-                ++i;
-            }
-        }
-        else if( bufer[i] == 19){
-            iterLabel = i;
-            if (jmp(cpu) == JUMPED) {
-                i = bufer[++i] - 3; /// почему - 3
-            }
-            else{
-                ++i;
-            }
-        }
         else if(bufer[i] == Return){
-            i = iterLabel  + 1;
+            i = pop(cpu->stack) + 1;
+        }
+        else if(bufer[i] == End){
+            break;
+        }
+        else if(bufer[i] == Call){
+            call(cpu, i);
+            i = bufer[++i] - 2; // почему блэт минус 2
         }
     }
-    //closing 
-    print_status (cpu);
-    diallocator (cpu);
-    free (bufer);
+
+    print_status(cpu);
+    diallocator(cpu);
+    free(bufer);
     fclose(file);
     return 0;
 }
@@ -155,7 +144,6 @@ void push_reg(CPU* CPU, stack* stack, int reg_name){
 
 /**
  * @brief 
- * 
  * @param cpu 
  * @param reg_name 
  * @param data 
@@ -343,4 +331,11 @@ void add(CPU * cpu, int secondReg, int firstReg){
             cpu->dx = cpu->dx + cpu->bx;
         }
     }
+}
+
+void call(CPU *cpu, int i){
+    if(cpu == NULL){
+        printf_warning;
+    }
+    push(cpu->stack, i);
 }
